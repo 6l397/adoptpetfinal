@@ -1,0 +1,255 @@
+:root {
+  --bg: white;
+  --bgSoft: #2d2b42;
+  --text: black;
+  --textSoft: #e5e5e5;
+  --btn: #442A9F;
+  --gray-100: #f3f4f6;
+  --gray-500: #6b7280;
+  --gray-700: #374151;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  width: 1536px;
+  margin: auto;
+  padding-left: 50px;
+  padding-right: 50px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Стилі для основного контенту */
+.main-content {
+  display: flex;
+  gap: 100px;
+}
+
+.textContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.title {
+  font-size: 40px;
+}
+
+.desc {
+  font-size: 27px;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.button {
+  padding: 15px 24px;
+  min-width: 120px;
+  cursor: pointer;
+  border: none;
+  border-radius: 9999px;
+  font-weight: 500;
+}
+
+.button:first-child {
+  background-color: var(--btn);
+  color: var(--text);
+}
+
+.brands {
+  width: 500px;
+  height: 50px;
+  position: relative;
+  filter: grayscale(1);
+}
+
+.imgContainer {
+  flex: 1;
+  position: relative;
+}
+
+/* Стилі для футера */
+.footer {
+  display: flex;
+  flex-direction: column;
+  color: var(--text);
+  margin-top: 5rem;
+  border-top: 1px solid var(--gray-100);
+}
+
+.footer__links-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2.5rem 1.5rem;
+}
+
+.footer__rights {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.footer__links {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end; /* You might want to change this to space-between */
+  gap: 5rem;
+}
+
+.footer__link {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 170px;
+}
+
+.footer__link h3 {
+  font-weight: 700;
+  margin-bottom: 0.5rem; /* Add some space below the heading */
+}
+
+.footer__link div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Reduce gap between links for better compactness */
+}
+.footer__copyrights {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--gray-100);
+  padding: 2.5rem 1.5rem;
+}
+
+.footer__copyrights-link {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 2.5rem;
+}
+
+.text-gray-500 {
+  color: var(--gray-500);
+}
+
+.text-gray-700 {
+  color: var(--gray-700);
+}
+
+/* Медіа-запити */
+@media (max-width: 1536px) {
+  .container {
+    width: 1366px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .container {
+    width: 1280px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .container {
+    width: 1024px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    width: 768px;
+  }
+  
+  .main-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .buttons {
+    justify-content: center;
+  }
+
+  .footer__links {
+    justify-content: center;
+    margin-top: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 640px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .brands {
+    width: 100%;
+  }
+
+  .footer__links-container,
+  .footer__copyrights {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+ 
+
+
+  .footer__copyrights-link {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: 475px;
+  padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 475px) {
+  .container {
+    width: 380px;
+  }
+  
+  .footer__links {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
