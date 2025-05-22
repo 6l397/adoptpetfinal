@@ -1,13 +1,14 @@
+// app/admin/page.js
 import { Suspense } from "react";
 import styles from "./admin.module.css";
 import AdminPosts from "@/components/adminPosts/adminPosts";
 import AdminPostForm from "@/components/adminPostForm/adminPostForm";
 import AdminUsers from "@/components/adminUsers/adminUsers";
 import AdminUserForm from "@/components/adminUserForm/adminUserForm";
+import AdminForms from "@/components/adminForms/AdminForms";
 import { auth } from "@/lib/auth";
 
 const AdminPage = async () => {
-
   const session = await auth();
 
   return (
@@ -19,7 +20,7 @@ const AdminPage = async () => {
           </Suspense>
         </div>
         <div className={styles.col}>
-          <AdminPostForm userId = {session.user.id} />
+          <AdminPostForm userId={session.user.id} />
         </div>
       </div>
       <div className={styles.row}>
@@ -30,6 +31,13 @@ const AdminPage = async () => {
         </div>
         <div className={styles.col}>
           <AdminUserForm />
+        </div>
+      </div>
+      <div className={styles.row}>
+        <div className={styles.col}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <AdminForms />
+          </Suspense>
         </div>
       </div>
     </div>

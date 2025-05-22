@@ -1,4 +1,4 @@
-import { Post, User } from "./models";
+import { Post, User, AdoptionForm } from "./models";
 import { connectToDb } from "./utils";
 import { unstable_noStore as noStore } from "next/cache";
 
@@ -45,5 +45,27 @@ export const getUsers = async () => {
   } catch (err) {
     console.log(err);
     throw new Error("Не вдалося отримати користувачів!");
+  }
+};
+
+export const getAdoptionForms = async () => {
+  try {
+    connectToDb();
+    const forms = await AdoptionForm.find().populate('postId');
+    return forms;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Не вдалося отримати форми!");
+  }
+};
+
+export const getAdoptionForm = async (id) => {
+  try {
+    connectToDb();
+    const form = await AdoptionForm.findById(id).populate('postId');
+    return form;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Не вдалося отримати форму!");
   }
 };

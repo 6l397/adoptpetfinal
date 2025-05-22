@@ -46,3 +46,19 @@
 .submitButton:hover {
   background-color: #442A9F;
 }
+
+.successMessage {
+  color: green;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border: 1px solid green;
+  border-radius: 4px;
+}
+
+.errorMessage {
+  color: red;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border: 1px solid red;
+  border-radius: 4px;
+}

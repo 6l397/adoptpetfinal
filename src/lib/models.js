@@ -72,5 +72,38 @@ const postSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+const adoptionFormSchema = new mongoose.Schema(
+  {
+    postId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Post',
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true
+    },
+    phone: String,
+    address: String,
+    experience: {
+      type: String,
+      required: true
+    },
+    message: String,
+    status: {
+      type: String,
+      enum: ['pending', 'approved', 'rejected'],
+      default: 'pending'
+    }
+  },
+  { timestamps: true }
+);
+
+
 export const User = mongoose.models?.User || mongoose.model("User", userSchema);
 export const Post = mongoose.models?.Post || mongoose.model("Post", postSchema);
+export const AdoptionForm = mongoose.models?.AdoptionForm || mongoose.model('AdoptionForm', adoptionFormSchema);

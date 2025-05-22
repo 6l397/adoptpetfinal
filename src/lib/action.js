@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { Post, User } from "./models";
+import { Post, User, AdoptionForm } from "./models";
 import { connectToDb } from "./utils";
 import { signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs";
@@ -12,15 +12,7 @@ export const addPost = async (prevState,formData) => {
 
   try {
     connectToDb();
-    const newPost = new Post({
-      title,
-      desc,
-      slug,
-      userId,
-      img,
-      type, 
-      ageGroups, 
-      sizes
+    const newPost = new Post({ title, desc, slug, userId, img, type, ageGroups, sizes
     });
 
     await newPost.save();
@@ -143,23 +135,44 @@ export const login = async (prevState, formData) => {
   }
 };
 
-// lib/actions.js
-// lib/actions.js
 export const submitAdoptionForm = async (prevState, formData) => {
-  const formDataObj = {
-    postId: formData.get("postId"),
-    name: formData.get("name"),
-    email: formData.get("email"),
-    phone: formData.get("phone"),
-    address: formData.get("address"),
-    experience: formData.get("experience"),
-    message: formData.get("message"),
-  };
+  try {
+    await connectToDb();
+    
+    const newForm = new AdoptionForm({
+      postId: formData.get("postId"),
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      address: formData.get("address"),
+      experience: formData.get("experience"),
+      message: formData.get("message")
+    });
 
-  console.log("Form data:", formDataObj); // Для тестування
+    await newForm.save();
 
-  return {
-    success: true,
-    message: "Дякуємо за заявку! Ми зв'яжемося з вами найближчим часом."
-  };
+    return {
+      success: true,
+      message: "Дякуємо за заявку! Ми зв'яжемося з вами найближчим часом."
+    };
+  } catch (err) {
+    console.error("Помилка при збереженні форми:", err);
+    return {
+      success: false,
+      message: "Сталася помилка при відправці форми. Спробуйте ще раз."
+    };
+  }
+};
+export const updateAdoptionFormStatus = async (formData) => {
+  const { id, status } = Object.fromEntries(formData);
+  
+  try {
+    await connectToDb();
+    await AdoptionForm.findByIdAndUpdate(id, { status });
+    revalidatePath("/admin/forms");
+    return { success: true, message: "Статус оновлено!" };
+  } catch (err) {
+    console.log(err);
+    return { success: false, message: "Не вдалося оновити статус" };
+  }
 };
