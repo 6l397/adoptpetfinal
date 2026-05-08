@@ -1,0 +1,17 @@
+.container {
+  min-height: calc(100vh - 220px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 500px;
+  padding: 40px;
+  background-color: var(--bgSoft);
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLarge);
+  box-shadow: var(--shadow);
+}

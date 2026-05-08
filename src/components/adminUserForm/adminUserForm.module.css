@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.container input,
+.container textarea,
+.container select {
+  width: 100%;
+  padding: 14px 16px;
+  background-color: var(--surfaceSoft);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+}
+
+.container input:focus,
+.container textarea:focus,
+.container select:focus {
+  border-color: var(--btn);
+}
+
+.container button {
+  padding: 14px 20px;
+  background-color: var(--btn);
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: background-color 0.2s ease;
+}
+
+.container button:hover {
+  background-color: var(--btnHover);
+}

@@ -1,0 +1,100 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.container input,
+.container textarea,
+.container select {
+  width: 100%;
+  padding: 14px 16px;
+  background-color: var(--surfaceSoft);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+}
+
+.container input:focus,
+.container textarea:focus,
+.container select:focus {
+  border-color: var(--btn);
+}
+
+.container textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.container button {
+  padding: 14px 20px;
+  background-color: var(--btn);
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: background-color 0.2s ease;
+}
+
+.container button:hover {
+  background-color: var(--btnHover);
+}
+
+.select {
+  appearance: auto;
+}
+
+.previewBox {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--surfaceSoft);
+}
+
+.previewImage {
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+.error {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.success {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.predictButton {
+  background-color: #111827 !important;
+}
+
+.predictButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.predictionsBox {
+  padding: 16px;
+  background-color: var(--surfaceSoft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.predictionsBox h3 {
+  margin-bottom: 10px;
+}
+
+.predictionsBox p {
+  margin-bottom: 6px;
+}
+
+.predictionsBox ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}

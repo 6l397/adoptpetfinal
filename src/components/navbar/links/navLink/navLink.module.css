@@ -1,0 +1,17 @@
+.container {
+  min-width: 100px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.container:hover {
+  background-color: var(--bgSoft);
+}
+
+.active {
+  background-color: var(--text);
+  color: var(--bg);
+}

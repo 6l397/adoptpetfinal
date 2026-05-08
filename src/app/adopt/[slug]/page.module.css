@@ -1,0 +1,36 @@
+.container {
+  min-height: calc(100vh - 220px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  background-color: var(--bg);
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 560px;
+  padding: 32px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLarge);
+  box-shadow: var(--shadow);
+}
+
+.wrapper h1 {
+  margin-bottom: 28px;
+  color: var(--text);
+  font-size: 28px;
+  line-height: 1.25;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .wrapper {
+    padding: 24px;
+  }
+
+  .wrapper h1 {
+    font-size: 24px;
+  }
+}
