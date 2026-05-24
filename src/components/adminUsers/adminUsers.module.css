@@ -4,6 +4,53 @@
   gap: 16px;
 }
 
+.filters {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filters label {
+  display: flex;
+  flex: 1;
+  min-width: 180px;
+  flex-direction: column;
+  gap: 7px;
+  font-weight: 700;
+}
+
+.filters label span {
+  font-size: 14px;
+}
+
+.filters input {
+  width: 100%;
+  padding: 11px 13px;
+  background-color: var(--surfaceSoft);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+}
+
+.filters input:focus {
+  border-color: var(--btn);
+}
+
+.filters button {
+  padding: 12px 15px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--btn);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.empty {
+  color: var(--textSoft);
+}
+
 .user {
   display: flex;
   align-items: center;

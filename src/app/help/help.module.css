@@ -1,0 +1,296 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  padding: 28px 0 56px;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: min(620px, calc(100vh - 150px));
+  overflow: hidden;
+  border-radius: var(--radiusLarge);
+  background-color: var(--text);
+}
+
+.image,
+.overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.photo {
+  object-fit: cover;
+  object-position: center;
+}
+
+.overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(17, 24, 39, 0.84) 0%,
+    rgba(17, 24, 39, 0.56) 46%,
+    rgba(17, 24, 39, 0.22) 100%
+  );
+}
+
+.intro {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  max-width: 650px;
+  flex-direction: column;
+  gap: 18px;
+  padding: 56px;
+  color: #ffffff;
+}
+
+.intro h1 {
+  font-size: clamp(38px, 5vw, 70px);
+  line-height: 1.06;
+  font-weight: 800;
+}
+
+.intro p {
+  max-width: 560px;
+  font-size: 21px;
+  line-height: 1.5;
+}
+
+.donation {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+  gap: 26px;
+  align-items: start;
+}
+
+.donationTool,
+.context {
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLarge);
+  background-color: var(--surface);
+}
+
+.donationTool {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px;
+}
+
+.amounts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.amounts button,
+.checkout button {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-weight: 800;
+}
+
+.amounts button {
+  min-height: 58px;
+  background-color: var(--surfaceSoft);
+  color: var(--text);
+}
+
+.amounts .active {
+  border-color: var(--btn);
+  background-color: var(--btn);
+  color: #ffffff;
+}
+
+.customAmount {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.customAmount span {
+  font-size: 14px;
+}
+
+.customAmount input {
+  width: 100%;
+  padding: 15px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--surfaceSoft);
+  color: var(--text);
+  outline: none;
+}
+
+.customAmount input:focus {
+  border-color: var(--btn);
+}
+
+.directions {
+  display: grid;
+  gap: 10px;
+}
+
+.directions label {
+  display: flex;
+  gap: 12px;
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--surfaceSoft);
+  cursor: pointer;
+}
+
+.directions input {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--btn);
+}
+
+.directions span {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--textSoft);
+  line-height: 1.4;
+}
+
+.directions strong {
+  color: var(--text);
+}
+
+.directionActive {
+  border-color: var(--btn) !important;
+  background-color: var(--bgSoft) !important;
+}
+
+.checkout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-top: 4px;
+}
+
+.checkout div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.checkout span {
+  color: var(--textSoft);
+  font-weight: 700;
+}
+
+.checkout strong {
+  font-size: 30px;
+}
+
+.checkout button {
+  min-height: 58px;
+  padding: 0 22px;
+  background-color: var(--gray-100);
+  color: var(--textSoft);
+  cursor: not-allowed;
+}
+
+.context {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 28px;
+  background-color: var(--surfaceSoft);
+}
+
+.context h2 {
+  font-size: 28px;
+}
+
+.context p {
+  color: var(--gray-700);
+  line-height: 1.65;
+}
+
+.impact {
+  display: grid;
+  gap: 10px;
+}
+
+.impact div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--surface);
+}
+
+.impact span {
+  color: var(--textSoft);
+}
+
+.catalogLink {
+  align-self: flex-start;
+  padding: 13px 18px;
+  border-radius: 999px;
+  background-color: var(--btn);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.catalogLink:hover {
+  background-color: var(--btnHover);
+}
+
+@media (max-width: 960px) {
+  .hero {
+    min-height: 560px;
+  }
+
+  .intro {
+    padding: 36px;
+  }
+
+  .donation {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    gap: 24px;
+    padding-top: 18px;
+  }
+
+  .hero {
+    min-height: 500px;
+  }
+
+  .intro {
+    padding: 28px 22px;
+  }
+
+  .intro p {
+    font-size: 18px;
+  }
+
+  .amounts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .donationTool,
+  .context {
+    padding: 20px;
+  }
+
+  .checkout {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

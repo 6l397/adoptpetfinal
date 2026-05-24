@@ -5,20 +5,23 @@
 .links {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
 }
 
 .logout {
   padding: 10px 14px;
-  background-color: transparent;
-  color: var(--text);
+  background-color: rgba(255, 255, 255, 0.74);
+  color: var(--textSoft);
   border: 1px solid var(--border);
   border-radius: 999px;
   font-weight: 700;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .logout:hover {
-  background-color: var(--bgSoft);
+  background-color: var(--surface);
+  color: var(--danger);
+  transform: translateY(-1px);
 }
 
 .menuButton,
@@ -34,6 +37,10 @@
   .menuButton {
     display: block;
     cursor: pointer;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
   }
 
   .mobileLinks {
@@ -42,13 +49,13 @@
     right: 0;
     z-index: 20;
     width: 240px;
-    padding: 24px;
+    padding: 14px;
     background-color: var(--surface);
     border: 1px solid var(--border);
-    border-radius: var(--radiusLarge);
+    border-radius: var(--radius);
     box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   }
 }

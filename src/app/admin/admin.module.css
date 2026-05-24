@@ -5,6 +5,62 @@
   padding: 32px 0;
 }
 
+.dashboardLinkPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 24px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLarge);
+  box-shadow: var(--shadow);
+  background:
+    linear-gradient(135deg, rgba(245, 240, 255, 0.92), rgba(255, 255, 255, 0.96)),
+    var(--surface);
+}
+
+.dashboardLinkPanel div {
+  display: flex;
+  max-width: 720px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dashboardLinkPanel span {
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background-color: var(--bgSoft);
+  color: var(--btn);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.dashboardLinkPanel h1 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+}
+
+.dashboardLinkPanel p {
+  color: var(--textSoft);
+  line-height: 1.5;
+}
+
+.dashboardLinkPanel a {
+  flex-shrink: 0;
+  padding: 13px 20px;
+  border-radius: 999px;
+  background-color: var(--btn);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.dashboardLinkPanel a:hover {
+  background-color: var(--btnHover);
+}
+
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -16,7 +72,11 @@
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radiusLarge);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadowSoft);
+}
+
+.wide {
+  grid-column: 1 / -1;
 }
 
 .col h1 {
@@ -31,6 +91,11 @@
 }
 
 @media (max-width: 900px) {
+  .dashboardLinkPanel {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .row {
     grid-template-columns: 1fr;
   }

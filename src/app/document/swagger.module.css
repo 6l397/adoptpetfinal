@@ -1,0 +1,22 @@
+.swaggerPage {
+  width: 100%;
+  padding: 20px 0 60px;
+}
+
+.swaggerPage :global(.swagger-ui) {
+  color: #3b4151;
+}
+
+.swaggerPage :global(.swagger-ui .topbar) {
+  display: none;
+}
+
+.swaggerPage :global(.swagger-ui .wrapper) {
+  max-width: 1280px;
+  padding: 0 24px;
+}
+
+.swaggerPage :global(.swagger-ui .scheme-container) {
+  border-radius: 8px;
+  box-shadow: none;
+}

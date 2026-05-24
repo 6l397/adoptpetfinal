@@ -21,7 +21,6 @@ export const authConfig = {
     authorized({ auth, request }) {
       const user = auth?.user;
       const isOnAdminPanel = request.nextUrl?.pathname.startsWith("/admin");
-      const isOnBlogPage = request.nextUrl?.pathname.startsWith("/catalog");
       const isOnLoginPage = request.nextUrl?.pathname.startsWith("/login");
 
       if (isOnAdminPanel && !user?.isAdmin) {

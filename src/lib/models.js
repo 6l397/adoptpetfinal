@@ -52,6 +52,17 @@ const postSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    listingType: {
+      type: String,
+      enum: ["adoption", "lost", "found"],
+      default: "adoption",
+    },
+    moderationStatus: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "approved",
+      index: true,
+    },
     type: {
     type: String,
     required: true,
@@ -111,6 +122,53 @@ const postSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+const animalDocumentSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      default: "",
+    },
+  },
+  { _id: false }
+);
+
+const animalSchema = new mongoose.Schema(
+  {
+    postId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Post",
+      required: true,
+      unique: true,
+      index: true,
+    },
+    foundLocation: {
+      type: String,
+      default: "",
+    },
+    foundByName: {
+      type: String,
+      default: "",
+    },
+    foundByContact: {
+      type: String,
+      default: "",
+    },
+    diseases: {
+      type: [String],
+      default: [],
+    },
+    documents: {
+      type: [animalDocumentSchema],
+      default: [],
+    },
+  },
+  { timestamps: true }
+);
+
 const adoptionFormSchema = new mongoose.Schema(
   {
     postId: {
@@ -145,4 +203,5 @@ const adoptionFormSchema = new mongoose.Schema(
 
 export const User = mongoose.models?.User || mongoose.model("User", userSchema);
 export const Post = mongoose.models?.Post || mongoose.model("Post", postSchema);
+export const Animal = mongoose.models?.Animal || mongoose.model("Animal", animalSchema);
 export const AdoptionForm = mongoose.models?.AdoptionForm || mongoose.model('AdoptionForm', adoptionFormSchema);

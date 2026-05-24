@@ -1,0 +1,39 @@
+.form {
+  display: grid;
+  gap: 14px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.actions button {
+  width: fit-content;
+  padding: 11px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--btn);
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.actions button:hover {
+  background: var(--btnHover);
+}
+
+.success,
+.error {
+  font-weight: 800;
+}
+
+.success {
+  color: var(--btn);
+}
+
+.error {
+  color: var(--danger);
+}

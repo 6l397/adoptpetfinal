@@ -73,9 +73,9 @@ textarea.input {
 }
 
 .successMessage {
-  color: #166534;
-  background-color: #dcfce7;
-  border: 1px solid #86efac;
+  color: #5b21b6;
+  background-color: #ede9fe;
+  border: 1px solid #c4b5fd;
 }
 
 .errorMessage {

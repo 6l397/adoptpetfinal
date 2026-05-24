@@ -4,6 +4,53 @@
   gap: 16px;
 }
 
+.filters {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filters label {
+  display: flex;
+  flex: 1;
+  min-width: 180px;
+  flex-direction: column;
+  gap: 7px;
+  font-weight: 700;
+}
+
+.filters label span {
+  font-size: 14px;
+}
+
+.filters input {
+  width: 100%;
+  padding: 11px 13px;
+  background-color: var(--surfaceSoft);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+}
+
+.filters input:focus {
+  border-color: var(--btn);
+}
+
+.filters button {
+  padding: 12px 15px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--btn);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.empty {
+  color: var(--textSoft);
+}
+
 .post {
   display: flex;
   align-items: center;
@@ -19,10 +66,78 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  min-width: 0;
+}
+
+.detail:hover .postTitle {
+  color: var(--btn);
 }
 
 .postTitle {
   font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.actions,
+.listingType {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.badge {
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--textSoft);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.pending {
+  border-color: #fcd34d;
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.approved {
+  border-color: #c4b5fd;
+  background-color: #ede9fe;
+  color: #5b21b6;
+}
+
+.rejected {
+  border-color: #fca5a5;
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.listingType select {
+  min-width: 150px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+.listingType button {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background-color: var(--surface);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.listingType button:hover {
+  background-color: var(--bgSoft);
 }
 
 .postButton {
@@ -38,5 +153,11 @@
   .post {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .actions,
+  .listingType {
+    width: 100%;
+    flex-wrap: wrap;
   }
 }

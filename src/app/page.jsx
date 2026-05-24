@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
 import Image from "next/image";
-import styles from "./home.module.css";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
+import styles from "./home.module.css";
 
 const Home = () => {
   const bgRef = useRef(null);
@@ -14,50 +15,53 @@ const Home = () => {
   }, []);
 
   return (
-    <div className={styles.hero}>
+    <section className={styles.hero}>
       <div className={styles.textContainer}>
-        <p className={styles.hero__title}>Знайдіть друга, що змінить ваше життя!</p>
+        <p className={styles.hero__title}>
+          Знайдіть друга, якому потрібен дім.
+        </p>
         <p className={styles.hero__subtitle}>
-          AdoptPet допомагає знайти ідеального вихованця і надати допомогу тваринам, які цього потребують.
+          AdoptPet об’єднує адопцію, оголошення про
+          загублених і знайдених тварин та допомогу.
         </p>
         <div className={styles.buttons}>
-          <button 
-            className={styles.button}
-            onClick={() => {
-              const footer = document.getElementById('footer');
-              if (footer) {
-                footer.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
+          <Link className={styles.button} href="/catalog">
+            Перейти до адопції
+          </Link>
+          <Link
+            className={`${styles.button} ${styles.secondaryButton}`}
+            href="/lost-found"
           >
-            Більше про нас
-          </button>
+            Загублені / знайдені
+          </Link>
         </div>
       </div>
 
-      <div className={styles.hero__imageContainer}>
-        <div 
-          ref={bgRef} 
+      <div className={styles.hero__imageContainer} aria-hidden="true">
+        <div
+          ref={bgRef}
           className={`${styles.hero__imageOverlay} ${styles.initialHidden}`}
         >
-          <Image 
-            src="/hero-bg.png" 
-            alt="Фонова підкладка" 
+          <Image
+            src="/hero-bg.png"
+            alt=""
             fill
             className="object-contain"
-            style={{ position: 'absolute' }}
+            style={{ position: "absolute" }}
+            priority
           />
         </div>
         <div className={styles.hero__image}>
-          <Image 
-            src="/hero.png" 
-            alt="Котик" 
-            fill 
-            className="object-contain" 
+          <Image
+            src="/hero.png"
+            alt=""
+            fill
+            className="object-contain"
+            priority
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

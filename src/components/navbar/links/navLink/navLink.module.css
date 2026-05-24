@@ -1,17 +1,23 @@
 .container {
-  min-width: 100px;
-  padding: 10px 14px;
+  min-width: max-content;
+  padding: 10px 13px;
+  border: 1px solid transparent;
   border-radius: 999px;
-  font-weight: 600;
+  color: var(--textSoft);
+  font-weight: 800;
   text-align: center;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .container:hover {
-  background-color: var(--bgSoft);
+  border-color: var(--border);
+  background-color: rgba(255, 255, 255, 0.74);
+  color: var(--text);
+  transform: translateY(-1px);
 }
 
 .active {
-  background-color: var(--text);
-  color: var(--bg);
+  border-color: rgba(124, 58, 237, 0.18);
+  background-color: var(--btn);
+  color: #ffffff;
 }

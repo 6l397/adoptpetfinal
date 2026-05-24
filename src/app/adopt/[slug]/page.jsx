@@ -6,6 +6,16 @@ const AdoptionPage = async ({ params }) => {
   const { slug } = params;
   const post = await getPost(slug);
 
+  if ((post.listingType || "adoption") !== "adoption") {
+    return (
+      <div className={styles.container}>
+        <div className={styles.wrapper}>
+          <h1>Це оголошення не призначене для адопції</h1>
+        </div>
+      </div>
+    );
+  }
+
   if (post.status !== "available") {
   return (
     <div className={styles.container}>

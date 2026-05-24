@@ -7,12 +7,12 @@ const Footer = () => {
     <footer id="footer" className="footer">
       <div className="footer__links-container">
         <div className="footer__rights">
-          <Image 
-            src='/logo.svg' 
-            alt='logo' 
-            width={60} 
-            height={18} 
-            className="object-contain" 
+          <Image
+            src="/logo-horizontal.png"
+            alt="AdoptPet"
+            width={60}
+            height={18}
+            className="object-contain"
           />
           <p className="text-gray-700">
             AdoptPet 2026 <br />
@@ -21,23 +21,23 @@ const Footer = () => {
         </div>
 
         <div className="footer__links">
-  {footerLinks.map((item) => (
-    <div key={item.title} className="footer__link">
-      <h3>{item.title}</h3>
-      <div className="flex flex-col gap-5">
-        {item.links.map((link) => (
-          <Link
-            key={link.title}
-            href={link.url}
-            className="text-gray-500"
-          >
-            {link.title}
-          </Link>
-        ))}
-      </div>
-    </div>
-  ))}
-</div>
+          {footerLinks.map((item) => (
+            <div key={item.title} className="footer__link">
+              <h3>{item.title}</h3>
+              <div>
+                {item.links.map((link) => (
+                  <Link
+                    key={link.title}
+                    href={link.url}
+                    className="text-gray-500"
+                  >
+                    {link.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="footer__copyrights">

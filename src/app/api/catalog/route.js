@@ -11,8 +11,15 @@ export const GET = async (request) => {
     const type = searchParams.get("type");
     const age = searchParams.get("age");
     const size = searchParams.get("size");
+    const page = Math.max(Number(searchParams.get("page")) || 1, 1);
+    const limit = Math.min(
+      Math.max(Number(searchParams.get("limit")) || 9, 1),
+      24
+    );
 
-    let query = {};
+    let query = {
+      listingType: { $nin: ["lost", "found"] },
+    };
     
     if (search) {
       query.$or = [
@@ -33,8 +40,19 @@ export const GET = async (request) => {
       query.sizes = size;
     }
 
-    const posts = await Post.find(query);
-    return NextResponse.json(posts);
+    const total = await Post.countDocuments(query);
+    const posts = await Post.find(query)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    return NextResponse.json({
+      items: posts,
+      total,
+      page,
+      limit,
+      pages: Math.max(Math.ceil(total / limit), 1),
+    });
     
   } catch (err) {
     console.log(err);

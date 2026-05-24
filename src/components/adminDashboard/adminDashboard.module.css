@@ -1,0 +1,250 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 32px 0 56px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: clamp(24px, 4vw, 38px);
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLarge);
+  background:
+    linear-gradient(135deg, rgba(245, 240, 255, 0.95), rgba(255, 255, 255, 0.96)),
+    var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.header div {
+  display: flex;
+  max-width: 760px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.header span {
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--bgSoft);
+  color: var(--btn);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.header h1 {
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.header p {
+  color: var(--textSoft);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.header a {
+  flex-shrink: 0;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--btn);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.header a:hover {
+  background: var(--btnHover);
+}
+
+.statsGrid,
+.grid {
+  display: grid;
+  gap: 18px;
+}
+
+.statsGrid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.statCard,
+.chartPanel {
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLarge);
+  background: var(--surface);
+  box-shadow: var(--shadowSoft);
+}
+
+.statCard {
+  display: flex;
+  min-height: 150px;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+}
+
+.statCard span,
+.statCard p {
+  color: var(--textSoft);
+}
+
+.statCard span {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.statCard strong {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.statCard p {
+  margin-top: auto;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.chartPanel {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px;
+}
+
+.chartPanel h2 {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.bars,
+.table,
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.barRow {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.7fr) 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.barRow span,
+.table span,
+.legend span {
+  min-width: 0;
+  color: var(--textSoft);
+  font-weight: 700;
+}
+
+.track {
+  height: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surfaceSoft);
+}
+
+.bar {
+  height: 100%;
+  min-width: 10px;
+  border-radius: inherit;
+}
+
+.donutWrap {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  align-items: center;
+  gap: 22px;
+}
+
+.donut {
+  position: relative;
+  display: grid;
+  width: 220px;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.donut::after {
+  content: "";
+  position: absolute;
+  inset: 42px;
+  border-radius: 50%;
+  background: var(--surface);
+}
+
+.donut span {
+  position: relative;
+  z-index: 1;
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.legend div,
+.table div {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.legend div:last-child,
+.table div:last-child {
+  border-bottom: 0;
+}
+
+.legend i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.empty {
+  color: var(--textSoft);
+}
+
+@media (max-width: 1180px) {
+  .statsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .donutWrap,
+  .barRow {
+    grid-template-columns: 1fr;
+  }
+
+  .donut {
+    width: min(220px, 100%);
+  }
+}

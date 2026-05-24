@@ -1,0 +1,251 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  padding: 24px 0 48px;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  min-height: min(520px, calc(100vh - 160px));
+  align-items: flex-end;
+  overflow: hidden;
+  border-radius: var(--radiusLarge);
+  background: var(--surfaceSoft);
+}
+
+.heroPhoto {
+  object-fit: cover;
+  object-position: center 38%;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(18, 17, 15, 0.84), rgba(18, 17, 15, 0.34)),
+    linear-gradient(180deg, rgba(18, 17, 15, 0.1), rgba(18, 17, 15, 0.62));
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  max-width: 720px;
+  flex-direction: column;
+  gap: 20px;
+  padding: clamp(28px, 5vw, 64px);
+  color: #ffffff;
+}
+
+.heroContent h1 {
+  font-size: clamp(38px, 6vw, 76px);
+  line-height: 1.04;
+  font-weight: 800;
+}
+
+.heroContent p {
+  max-width: 620px;
+  font-size: 21px;
+  line-height: 1.5;
+}
+
+.heroActions,
+.emptyActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.heroActions a,
+.emptyActions a {
+  width: fit-content;
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: var(--btn);
+  color: #ffffff;
+  font-weight: 800;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.heroActions a:hover,
+.emptyActions a:hover {
+  background: var(--btnHover);
+  transform: translateY(-1px);
+}
+
+.directory {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tab,
+.activeTab {
+  min-height: 44px;
+  padding: 11px 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 800;
+}
+
+.activeTab {
+  border-color: var(--btn);
+  background: var(--btn);
+  color: #ffffff;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.6fr) minmax(180px, 1fr) minmax(180px, 1fr) auto;
+  align-items: end;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLarge);
+  background: var(--surfaceSoft);
+}
+
+.filters label {
+  display: grid;
+  min-width: 0;
+  gap: 8px;
+}
+
+.filters span {
+  color: var(--textSoft);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.filters input,
+.filters select {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.filters button {
+  min-height: 48px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--btn);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.filters button:hover {
+  background: var(--btnHover);
+}
+
+.resultsHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.resultsHeader h2 {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.resultsHeader span {
+  color: var(--textSoft);
+  font-weight: 800;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.empty {
+  display: flex;
+  min-height: 260px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 14px;
+  padding: clamp(24px, 4vw, 42px);
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLarge);
+  background: var(--surfaceSoft);
+}
+
+.empty h2 {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.empty p {
+  color: var(--textSoft);
+  font-size: 18px;
+}
+
+@media (max-width: 1024px) {
+  .filters {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .filters button {
+    width: fit-content;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    gap: 28px;
+    padding-top: 16px;
+  }
+
+  .hero {
+    min-height: 500px;
+    border-radius: var(--radius);
+  }
+
+  .heroContent {
+    padding: 26px;
+  }
+
+  .heroContent p {
+    font-size: 18px;
+  }
+
+  .filters,
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filters {
+    padding: 18px;
+  }
+
+  .filters button {
+    width: 100%;
+  }
+
+  .resultsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

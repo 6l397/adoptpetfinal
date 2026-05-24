@@ -1,0 +1,59 @@
+.page {
+  display: flex;
+  max-width: 980px;
+  flex-direction: column;
+  gap: 28px;
+  padding: 30px 0 54px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.header a {
+  width: fit-content;
+  color: var(--btn);
+  font-weight: 800;
+}
+
+.header a:hover {
+  text-decoration: underline;
+}
+
+.header h1 {
+  font-size: clamp(36px, 5vw, 62px);
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.header p {
+  max-width: 760px;
+  color: var(--textSoft);
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.authBox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLarge);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.authBox a {
+  padding: 13px 20px;
+  border-radius: 999px;
+  background: var(--btn);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.authBox a:hover {
+  background: var(--btnHover);
+}

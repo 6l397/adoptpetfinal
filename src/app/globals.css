@@ -1,22 +1,25 @@
 :root {
-  --bg: #ffffff;
-  --bgSoft: #f7f5ff;
+  --bg: #fbfaf7;
+  --bgSoft: #f5f0ff;
   --surface: #ffffff;
-  --surfaceSoft: #f8f8fb;
-  --text: #111827;
-  --textSoft: #6b7280;
-  --btn: #442a9f;
-  --btnHover: #351f82;
-  --border: #e5e7eb;
-  --danger: #dc2626;
-  --success: #16a34a;
-  --warning: #f59e0b;
+  --surfaceSoft: #f5f4ef;
+  --text: #24150f;
+  --textSoft: #6f665f;
+  --btn: #7c3aed;
+  --btnHover: #6d28d9;
+  --accent: #a855f7;
+  --accentSoft: #f3e8ff;
+  --border: #e5dfd6;
+  --danger: #be123c;
+  --success: #7c3aed;
+  --warning: #d97706;
   --gray-100: #f3f4f6;
   --gray-500: #6b7280;
   --gray-700: #374151;
-  --radius: 12px;
-  --radiusLarge: 24px;
-  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --radius: 8px;
+  --radiusLarge: 16px;
+  --shadow: 0 18px 45px rgba(57, 44, 31, 0.09);
+  --shadowSoft: 0 8px 22px rgba(57, 44, 31, 0.07);
 }
 
 * {
@@ -31,7 +34,11 @@ html {
 }
 
 body {
-  background-color: var(--bg);
+  background:
+    radial-gradient(circle at 78% 42%, rgba(124, 58, 237, 0.1), transparent 30rem),
+    radial-gradient(circle at top left, rgba(124, 58, 237, 0.11), transparent 34rem),
+    linear-gradient(180deg, #fffdfa 0%, var(--bg) 42%);
+  background-attachment: fixed;
   color: var(--text);
 }
 
@@ -49,6 +56,23 @@ select {
 
 button {
   cursor: pointer;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(124, 58, 237, 0.28);
+  outline-offset: 3px;
 }
 
 .container {
@@ -77,16 +101,17 @@ button {
 .footer {
   display: flex;
   flex-direction: column;
-  margin-top: 80px;
+  margin-top: 56px;
+  padding-top: 18px;
   color: var(--text);
-  border-top: 1px solid var(--border);
+  background: transparent;
 }
 
 .footer__links-container {
   display: flex;
   justify-content: space-between;
   gap: 40px;
-  padding: 40px 0;
+  padding: 34px 0 24px;
 }
 
 .footer__rights {
@@ -105,13 +130,23 @@ button {
 .footer__link {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 14px;
   min-width: 160px;
 }
 
 .footer__link h3 {
   font-size: 18px;
   font-weight: 700;
+}
+
+.footer__link a {
+  color: var(--textSoft);
+  font-weight: 650;
+  transition: color 0.2s ease;
+}
+
+.footer__link a:hover {
+  color: var(--btn);
 }
 
 .footer__link div {
@@ -125,8 +160,9 @@ button {
   justify-content: space-between;
   align-items: center;
   gap: 24px;
-  padding: 28px 0;
-  border-top: 1px solid var(--border);
+  padding: 18px 0 28px;
+  color: var(--textSoft);
+  font-size: 14px;
 }
 
 .footer__copyrights-link {
@@ -181,11 +217,13 @@ button {
   border-radius: var(--radius);
   outline: none;
   font-size: 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .searchbar__input:focus,
 .custom-filter__input:focus {
   border-color: var(--btn);
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
 }
 
 .relative {
@@ -206,12 +244,16 @@ button {
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadowSoft);
 }
 
 .custom-filter__options div {
   padding: 10px 14px;
   cursor: pointer;
+}
+
+.custom-filter__options div:hover {
+  background: var(--bgSoft);
 }
 
 .main {

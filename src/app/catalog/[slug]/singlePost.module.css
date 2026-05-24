@@ -55,6 +55,64 @@
   line-height: 1.7;
 }
 
+.healthPanel {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--surfaceSoft);
+}
+
+.healthPanel summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  list-style: none;
+}
+
+.healthPanel summary::-webkit-details-marker {
+  display: none;
+}
+
+.healthPanel summary::after {
+  content: "+";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background-color: var(--surface);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.healthPanel[open] summary {
+  border-bottom: 1px solid var(--border);
+}
+
+.healthPanel[open] summary::after {
+  content: "-";
+}
+
+.healthPanel p,
+.healthPanel ul {
+  padding: 18px 20px 20px;
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+.healthPanel ul {
+  display: grid;
+  gap: 10px;
+  padding-left: 40px;
+}
+
 .adoptionSection {
   margin-top: 12px;
   padding-top: 24px;
@@ -156,9 +214,9 @@
 }
 
 .available{
-  background: #dcfce7;
-  color: #15803d;
-  border-color: #86efac;
+  background: #ede9fe;
+  color: #5b21b6;
+  border-color: #c4b5fd;
 }
 
 .reserved{
@@ -171,4 +229,16 @@
   background: #fee2e2;
   color: #b91c1c;
   border-color: #fca5a5;
+}
+
+.lost {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+
+.found {
+  background: #dbeafe;
+  color: #1d4ed8;
+  border-color: #93c5fd;
 }

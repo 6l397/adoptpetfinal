@@ -11,7 +11,7 @@ const ClientAgentChat = () => {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      text: "Привіт! Я AI-помічник AdoptPet. Опишіть, яку тваринку шукаєте, і я пораджу варіанти з каталогу.",
+      text: "Привіт! Я AI-помічник AdoptPet. Опишіть, яку тваринку шукаєте, і я пораджу тваринок для адопції.",
     },
   ]);
 

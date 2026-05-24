@@ -104,7 +104,7 @@ const AdoptionForm = ({ postId }) => {
         </button>
         
         <Link href="/catalog" className={styles.backLink}>
-          Назад до каталогу
+          Назад до адопції тварин
         </Link>
       </div>
       

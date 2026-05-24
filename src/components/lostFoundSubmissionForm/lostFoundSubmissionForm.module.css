@@ -1,0 +1,115 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid var(--border);
+  border-radius: var(--radiusLarge);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.grid label {
+  display: grid;
+  min-width: 0;
+  gap: 8px;
+}
+
+.grid span {
+  color: var(--textSoft);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.grid input,
+.grid select,
+.grid textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surfaceSoft);
+  color: var(--text);
+  font: inherit;
+}
+
+.grid textarea {
+  min-height: 160px;
+  padding: 14px;
+  resize: vertical;
+}
+
+.grid input:focus,
+.grid select:focus,
+.grid textarea:focus {
+  border-color: var(--btn);
+  outline: none;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.submitRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-top: 6px;
+}
+
+.submitRow p {
+  max-width: 560px;
+  color: var(--textSoft);
+  line-height: 1.5;
+}
+
+.submitRow button {
+  min-height: 48px;
+  flex-shrink: 0;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--btn);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.submitRow button:hover {
+  background: var(--btnHover);
+}
+
+.success,
+.error {
+  padding: 13px 14px;
+  border-radius: var(--radius);
+  font-weight: 700;
+}
+
+.success {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+@media (max-width: 760px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .submitRow {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

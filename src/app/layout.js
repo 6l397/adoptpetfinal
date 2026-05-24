@@ -1,11 +1,10 @@
-import { Inter } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
-import ClientSideProviderTest from "@/components/clientSideProviderTest";
 import ClientAgentChat from "@/components/clientAgentChat/ClientAgentChat";
 
-const inter = Inter({ subsets: ["latin"] });
+const manrope = Manrope({ subsets: ["latin", "cyrillic"] });
 
 export const metadata = {
   title: {
@@ -18,15 +17,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-
-      <body className={inter.className}>
-        {/* <ClientSideProviderTest> */}
+      <body className={manrope.className}>
         <div className="container">
           <Navbar />
 
@@ -34,7 +25,6 @@ export default function RootLayout({ children }) {
 
           <Footer />
         </div>
-        {/* </ClientSideProviderTest> */}
 
         <ClientAgentChat />
       </body>

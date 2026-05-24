@@ -1,17 +1,61 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { Post, User, AdoptionForm } from "./models";
+import { Animal, Post, User, AdoptionForm } from "./models";
 import { connectToDb } from "./utils";
-import { signIn, signOut } from "./auth";
+import { auth, signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs";
 import { generateBreedDescription } from "@/lib/generateBreedDescription";
+
+const parseLines = (value) =>
+  String(value || "")
+    .split(/\r?\n/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+const parseAnimalDocuments = (value) =>
+  parseLines(value)
+    .map((line) => {
+      const [name, ...urlParts] = line.split("|");
+
+      return {
+        name: name.trim(),
+        url: urlParts.join("|").trim(),
+      };
+    })
+    .filter((document) => document.name);
+
+const createSlugBase = (value) => {
+  const slug = String(value || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9а-яіїєґ]+/gi, "-")
+    .replace(/^-+|-+$/g, "");
+
+  return slug || "lost-found";
+};
+
+const buildUniqueSlug = async (title) => {
+  const base = createSlugBase(title);
+  let slug = `${base}-${Date.now()}`;
+  let index = 1;
+
+  while (await Post.findOne({ slug })) {
+    slug = `${base}-${Date.now()}-${index}`;
+    index += 1;
+  }
+
+  return slug;
+};
 
 export const addPost = async (prevState, formData) => {
   const {
     title,
     desc,
     slug,
+    listingType,
     userId,
     img,
     type,
@@ -23,6 +67,11 @@ export const addPost = async (prevState, formData) => {
     status,
     city,
     sex,
+    animalFoundLocation,
+    animalFoundByName,
+    animalFoundByContact,
+    animalDiseases,
+    animalDocuments,
   } = Object.fromEntries(formData);
 
   if (!title || !desc || !slug || !userId || !img || !type || !ageGroups || !sizes) {
@@ -60,6 +109,8 @@ export const addPost = async (prevState, formData) => {
       title,
       desc,
       slug,
+      listingType: listingType || "adoption",
+      moderationStatus: "approved",
       userId,
       img,
       type,
@@ -77,7 +128,24 @@ export const addPost = async (prevState, formData) => {
 
     await newPost.save();
 
+    try {
+      const newAnimal = new Animal({
+        postId: newPost._id,
+        foundLocation: animalFoundLocation,
+        foundByName: animalFoundByName,
+        foundByContact: animalFoundByContact,
+        diseases: parseLines(animalDiseases),
+        documents: parseAnimalDocuments(animalDocuments),
+      });
+
+      await newAnimal.save();
+    } catch (animalErr) {
+      await Post.findByIdAndDelete(newPost._id);
+      throw animalErr;
+    }
+
     revalidatePath("/catalog");
+    revalidatePath("/lost-found");
     revalidatePath("/admin");
 
     return { success: true };
@@ -87,19 +155,239 @@ export const addPost = async (prevState, formData) => {
   }
 };
 
+export const submitLostFoundReport = async (prevState, formData) => {
+  const {
+    listingType,
+    title,
+    desc,
+    img,
+    type,
+    ageGroups,
+    sizes,
+    breed,
+    city,
+    sex,
+    foundLocation,
+    reporterName,
+    reporterEmail,
+    reporterPhone,
+  } = Object.fromEntries(formData);
+  const session = await auth();
+  const allowedListingTypes = ["lost", "found"];
+  const contact = [reporterEmail, reporterPhone]
+    .map((item) => String(item || "").trim())
+    .filter(Boolean)
+    .join(" | ");
+
+  if (
+    !allowedListingTypes.includes(listingType) ||
+    !title ||
+    !desc ||
+    !type ||
+    !ageGroups ||
+    !sizes ||
+    !reporterName ||
+    !contact ||
+    !session?.user?.id
+  ) {
+    return {
+      success: false,
+      message:
+        "Увійдіть в акаунт, заповніть обов'язкові поля та залиште хоча б один контакт.",
+    };
+  }
+
+  try {
+    await connectToDb();
+
+    const slug = await buildUniqueSlug(title);
+    const newPost = new Post({
+      title,
+      desc,
+      slug,
+      listingType,
+      moderationStatus: "pending",
+      userId: session.user.id,
+      img: img || "/cat.jpg",
+      type,
+      ageGroups,
+      sizes,
+      breed,
+      status: "available",
+      city,
+      sex,
+    });
+
+    await newPost.save();
+
+    try {
+      const newAnimal = new Animal({
+        postId: newPost._id,
+        foundLocation,
+        foundByName: reporterName,
+        foundByContact: contact,
+      });
+
+      await newAnimal.save();
+    } catch (animalErr) {
+      await Post.findByIdAndDelete(newPost._id);
+      throw animalErr;
+    }
+
+    revalidatePath("/admin");
+
+    return {
+      success: true,
+      message: "Дякуємо. Оголошення надіслано на модерацію.",
+    };
+  } catch (err) {
+    console.log(err);
+    return {
+      success: false,
+      message: "Не вдалося надіслати оголошення. Спробуйте ще раз.",
+    };
+  }
+};
+
 export const deletePost = async (formData) => {
   const { id } = Object.fromEntries(formData);
 
   try {
     await connectToDb();
 
+    await Animal.deleteOne({ postId: id });
     await Post.findByIdAndDelete(id);
-    console.log("deleted from db");
     revalidatePath("/catalog");
+    revalidatePath("/lost-found");
     revalidatePath("/admin");
   } catch (err) {
     console.log(err);
     return { error: "Щось пішло не так!" };
+  }
+};
+
+export const updatePostListingType = async (formData) => {
+  const { id, listingType } = Object.fromEntries(formData);
+  const listingTypes = ["adoption", "lost", "found"];
+
+  if (!id || !listingTypes.includes(listingType)) {
+    return { success: false };
+  }
+
+  try {
+    await connectToDb();
+
+    await Post.findByIdAndUpdate(
+      id,
+      { listingType },
+      { runValidators: true }
+    );
+
+    revalidatePath("/admin");
+    revalidatePath("/catalog");
+    revalidatePath("/lost-found");
+
+    return { success: true };
+  } catch (err) {
+    console.log(err);
+    return { success: false };
+  }
+};
+
+export const updatePostModerationStatus = async (formData) => {
+  const { id, moderationStatus } = Object.fromEntries(formData);
+  const statuses = ["pending", "approved", "rejected"];
+
+  if (!id || !statuses.includes(moderationStatus)) {
+    return { success: false };
+  }
+
+  try {
+    await connectToDb();
+
+    await Post.findByIdAndUpdate(
+      id,
+      { moderationStatus },
+      { runValidators: true }
+    );
+
+    revalidatePath("/admin");
+    revalidatePath("/lost-found");
+    revalidatePath("/catalog");
+
+    return { success: true };
+  } catch (err) {
+    console.log(err);
+    return { success: false };
+  }
+};
+
+export const updateAnimal = async (formData) => {
+  const {
+    id,
+    foundLocation,
+    foundByName,
+    foundByContact,
+    diseases,
+    documents,
+  } = Object.fromEntries(formData);
+
+  if (!id) {
+    return { success: false, error: "Не знайдено картку тварини" };
+  }
+
+  try {
+    await connectToDb();
+
+    await Animal.findByIdAndUpdate(
+      id,
+      {
+        foundLocation,
+        foundByName,
+        foundByContact,
+        diseases: parseLines(diseases),
+        documents: parseAnimalDocuments(documents),
+      },
+      { runValidators: true }
+    );
+
+    revalidatePath("/admin");
+
+    return { success: true };
+  } catch (err) {
+    console.log(err);
+    return { success: false, error: "Не вдалося оновити картку тварини" };
+  }
+};
+
+export const updateProfilePhoto = async (prevState, formData) => {
+  const session = await auth();
+  const img = String(formData.get("img") || "").trim();
+
+  if (!session?.user?.id) {
+    return { success: false, message: "Увійдіть в акаунт, щоб оновити фото." };
+  }
+
+  if (!img) {
+    return { success: false, message: "Спочатку завантажте фото або вставте URL." };
+  }
+
+  try {
+    await connectToDb();
+
+    await User.findByIdAndUpdate(
+      session.user.id,
+      { img },
+      { runValidators: true }
+    );
+
+    revalidatePath("/profile");
+    revalidatePath("/admin");
+
+    return { success: true, message: "Фото профілю оновлено." };
+  } catch (err) {
+    console.log(err);
+    return { success: false, message: "Не вдалося оновити фото профілю." };
   }
 };
 
@@ -149,9 +437,12 @@ export const deleteUser = async (formData) => {
   try {
     await connectToDb();
 
+    const posts = await Post.find({ userId: id }).select("_id");
+    const postIds = posts.map((post) => post._id);
+
+    await Animal.deleteMany({ postId: { $in: postIds } });
     await Post.deleteMany({ userId: id });
     await User.findByIdAndDelete(id);
-    console.log("deleted from db");
     revalidatePath("/admin");
   } catch (err) {
     console.log(err);
@@ -192,7 +483,6 @@ export const register = async (previousState, formData) => {
     });
 
     await newUser.save();
-    console.log("saved to db");
 
     return { success: true };
   } catch (err) {
@@ -236,9 +526,22 @@ export const loginWithGoogle = async () => {
 export const submitAdoptionForm = async (prevState, formData) => {
   try {
     await connectToDb();
+    const postId = formData.get("postId");
+    const post = await Post.findById(postId);
+
+    if (
+      !post ||
+      (post.listingType || "adoption") !== "adoption" ||
+      post.status !== "available"
+    ) {
+      return {
+        success: false,
+        message: "Ця тварина зараз недоступна для адопції.",
+      };
+    }
     
     const newForm = new AdoptionForm({
-      postId: formData.get("postId"),
+      postId,
       name: formData.get("name"),
       email: formData.get("email"),
       phone: formData.get("phone"),

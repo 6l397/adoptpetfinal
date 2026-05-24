@@ -12,13 +12,27 @@ const links = [
     path: "/",
   },
   {
-    title: "Каталог",
+    title: "Адопція тварин",
     path: "/catalog",
+  },
+  {
+    title: "Загублені / знайдені",
+    path: "/lost-found",
+  },
+  {
+    title: "Разова допомога",
+    path: "/help",
   },
 ];
 
 const Links = ({session}) => {
   const [open, setOpen] = useState(false);
+  const sessionLinks = session?.user
+    ? [
+        { title: "Мій кабінет", path: "/profile" },
+        ...(session.user?.isAdmin ? [{ title: "Адмін", path: "/admin" }] : []),
+      ]
+    : [{ title: "Увійти", path: "/login" }];
 
   return (
     <div className={styles.container}>
@@ -28,13 +42,15 @@ const Links = ({session}) => {
         ))}
         {session?.user ? (
           <>
-            {session.user?.isAdmin && <NavLink item={{ title: "Адмін", path: "/admin" }} />}
+            {sessionLinks.map((link) => (
+              <NavLink item={link} key={link.title} />
+            ))}
             <form action={handleLogout}>
               <button className={styles.logout}>Вийти</button>
             </form>
           </>
         ) : (
-          <NavLink item={{ title: "Увійти", path: "/login" }} />
+          <NavLink item={sessionLinks[0]} />
         )}
       </div>
       <Image
@@ -50,6 +66,14 @@ const Links = ({session}) => {
           {links.map((link) => (
             <NavLink item={link} key={link.title} />
           ))}
+          {sessionLinks.map((link) => (
+            <NavLink item={link} key={link.title} />
+          ))}
+          {session?.user && (
+            <form action={handleLogout}>
+              <button className={styles.logout}>Вийти</button>
+            </form>
+          )}
         </div>
       )}
     </div>
