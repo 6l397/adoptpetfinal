@@ -29,8 +29,3 @@ services:
     ports:
       - "8000:8000"
 
-    environment:
-      MODEL_DIR: /app/models
-
-    volumes:
-      - ./ml-service/models:/app/models
